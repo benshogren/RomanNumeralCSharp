@@ -45,15 +45,15 @@ namespace RomanNumeralCalculatorCSharp
             int followingCharacter;
             long answer = 0;
 
-            for (int numeralChar = 0; numeralChar <= WholeNumeral.Length - 1; numeralChar++)
+            for (int characterIndex = 0; characterIndex <= WholeNumeral.Length - 1; characterIndex++)
             {
-                primaryCharacter = ConvertSingleChars(WholeNumeral[numeralChar]);
-                if (numeralChar == WholeNumeral.Length - 1)
+                primaryCharacter = ConvertSingleChars(WholeNumeral[characterIndex]);
+                if (characterIndex == WholeNumeral.Length - 1)
                 {
                     answer = answer + primaryCharacter;
                     return (int)answer;
                 }
-                followingCharacter = ConvertSingleChars(WholeNumeral[numeralChar + 1]);
+                followingCharacter = ConvertSingleChars(WholeNumeral[characterIndex + 1]);
                 if (primaryCharacter < followingCharacter)
                 {
                     answer = answer - primaryCharacter;
