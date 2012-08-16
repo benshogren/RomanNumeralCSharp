@@ -38,15 +38,42 @@ namespace RomanNumeralCalculatorCSharp
             if (x.ToString().Length == 1)
             {
                 return OneDigit(x);
-            } 
+            }
             else if (x.ToString().Length == 2)
             {
                 return TwoDigit(x);
             }
-            else 
+            else if (x.ToString().Length == 3)
             {
                 return ThreeDigit(x);
-            }  
+            }
+            else return FourDigit(x);
+        }
+
+        public string FourDigit(int x)
+        {
+            string Answer = "";
+            int y;
+            switch (x.ToString()[0])
+            {
+                case '1':
+                    Answer = Answer + "M";
+                    y = x - 1000;
+                    break;
+                case '2':
+                    Answer = Answer + "MM";
+                    y = x - 2000;
+                    break;
+                case '3':
+                    Answer = Answer + "MMM";
+                    y = x - 3000;
+                    break;
+                default:
+                    y = 0;
+                    break;
+            }
+            Answer = Answer + ConvertNumberstoRomanNumerals(y);
+            return Answer;
         }
 
         public string ThreeDigit(int x)
@@ -95,7 +122,7 @@ namespace RomanNumeralCalculatorCSharp
                     y = 0;
                     break;
             }
-            Answer = Answer + TwoDigit(y);
+            Answer = Answer + ConvertNumberstoRomanNumerals(y);
             return Answer;
         }
 
@@ -103,7 +130,8 @@ namespace RomanNumeralCalculatorCSharp
         {
             string Answer = "";
             int y;
-            switch (x.ToString()[0]) { 
+            switch (x.ToString()[0]) 
+            {
                 case '1':
                     Answer = Answer + "X";
                     y = x - 10;
@@ -144,7 +172,7 @@ namespace RomanNumeralCalculatorCSharp
                     y = 0;
                     break;
             }
-            Answer = Answer + OneDigit(y);
+            Answer = Answer + ConvertNumberstoRomanNumerals(y);
             return Answer; 
         }
 
