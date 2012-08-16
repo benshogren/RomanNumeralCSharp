@@ -16,7 +16,7 @@ namespace RomanNumeralCalculatorCSharp
 
         public string ConvertNumberstoRomanNumerals(int x)
         {
-            string Answer = "";
+            
             switch (x){
                 case 1:
                     return "I";
@@ -34,9 +34,71 @@ namespace RomanNumeralCalculatorCSharp
                     return "M";
                 default:
                     break;
-            } 
-                    
-            if(x.ToString().Length == 1){
+            }
+             TwoDigit(x);
+            
+
+            return OneThroughTen(x);
+        
+        }
+        public string TwoDigit(int x)
+        {
+            string Answer = "";
+            int y;
+            switch (x.ToString()[0]) { 
+                case '1':
+                    Answer = Answer + "X";
+                    y = x - 10;
+                    break;
+                case '2':
+                    Answer = Answer + "XX";
+                    y = x - 20;
+                    break;
+                case '3':
+                    Answer = Answer + "XXX";
+                    y = x - 30;
+                    break;
+                case '4':
+                    Answer = Answer + "XL";
+                    y = x - 40;
+                    break;
+                case '5':
+                    Answer = Answer + "L";
+                    y = x - 50;
+                    break;
+                case '6':
+                    Answer = Answer + "LX";
+                    y = x - 60;
+                    break;
+                case '7':
+                    Answer = Answer + "LXX";
+                    y = x - 70;
+                    break;
+                case '8':
+                    Answer = Answer + "LXXX";
+                    y = x - 80;
+                    break;
+                case '9':
+                    Answer = Answer + "XC";
+                    y = x - 90;
+                    break;
+                default:
+                    y = 0;
+                    break;
+            }
+            Answer = Answer + OneThroughTen(y);
+
+
+
+
+            return Answer; 
+        }
+
+        public string OneThroughTen(int x)
+        {
+            string Answer = "";
+            if (x.ToString().Length == 1)
+            {
                 if (x == 4)
                 {
                     return "IV";
@@ -47,7 +109,7 @@ namespace RomanNumeralCalculatorCSharp
                 }
                 else if (x < 5)
                 {
-                    for (int i = 0; i <= (x - 1) ; i++)
+                    for (int i = 0; i <= (x - 1); i++)
                     {
                         Answer = Answer + "I";
                     }
@@ -63,11 +125,9 @@ namespace RomanNumeralCalculatorCSharp
                     return Answer;
                 }
                 else return "0";
-                
-            }
-            else return "0";
 
-        
+            }
+            else return TwoDigit(x);
         }
 
         public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber)

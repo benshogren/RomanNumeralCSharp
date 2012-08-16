@@ -130,5 +130,35 @@ namespace CalcTest
             Converter c = new Converter();
             Assert.AreEqual("III", c.ConvertNumberstoRomanNumerals(3));
         }
+        [Test]
+        public void TestConvertComboBackwards40()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("XL", c.ConvertNumberstoRomanNumerals(40));
+        }
+        [Test]
+        public void TestConvertComboBackwards46()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("XLVI", c.ConvertNumberstoRomanNumerals(46));
+        }
+        [Test]
+        public void TestConvertComboBackwards89()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("LXXXIX", c.ConvertNumberstoRomanNumerals(89));
+        }
+        [Test]
+        public void TestConvertComboBackwards99()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("XCIX", c.ConvertNumberstoRomanNumerals(99));
+        }
+        [Test]
+        public void TestConvertComboBackwards12()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("XII", c.ConvertNumberstoRomanNumerals(12));
+        }
     }
 }
