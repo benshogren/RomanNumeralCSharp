@@ -14,6 +14,62 @@ namespace RomanNumeralCalculatorCSharp
             Divide
         }
 
+        public string ConvertNumberstoRomanNumerals(int x)
+        {
+            string Answer = "";
+            switch (x){
+                case 1:
+                    return "I";
+                case 5:
+                    return "V";
+                case 10:
+                    return "X";
+                case 50:
+                    return "L";
+                case 100:
+                    return "C";
+                case 500:
+                    return "D";
+                case 1000:
+                    return "M";
+                default:
+                    break;
+            } 
+                    
+            if(x.ToString().Length == 1){
+                if (x == 4)
+                {
+                    return "IV";
+                }
+                else if (x == 9)
+                {
+                    return "IX";
+                }
+                else if (x < 5)
+                {
+                    for (int i = 0; i <= (x - 1) ; i++)
+                    {
+                        Answer = Answer + "I";
+                    }
+                    return Answer;
+                }
+                else if (x > 5)
+                {
+                    Answer = Answer + "V";
+                    for (int i = 0; i <= (x - 6); i++)
+                    {
+                        Answer = Answer + "I";
+                    }
+                    return Answer;
+                }
+                else return "0";
+                
+            }
+            else return "0";
+
+        
+        }
+
         public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber)
         {
             if (calcFunction == CalcFunction.Add)
@@ -78,6 +134,8 @@ namespace RomanNumeralCalculatorCSharp
                     return 50;
                 case 'C':
                     return 100;
+                case 'D':
+                    return 500;
                 case 'M':
                     return 1000;
                 default:

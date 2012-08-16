@@ -92,8 +92,43 @@ namespace CalcTest
         public void TestEveryNumeral()
         {
             Converter e = new Converter();
-            Assert.AreEqual(1170, e.Calculate((Converter.CalcFunction.Add), ("MCXLIII"), ("XXVII")));
+            Assert.AreEqual(1470, e.Calculate((Converter.CalcFunction.Add), ("MCDXLIII"), ("XXVII")));
         }
-      
+        [Test]
+        public void TestConvertBackwardsI()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("I", c.ConvertNumberstoRomanNumerals(1));
+        }
+        [Test]
+        public void TestConvertBackwardsV()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("V", c.ConvertNumberstoRomanNumerals(5));
+        }
+        [Test]
+        public void TestConvertBackwardsD()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("D", c.ConvertNumberstoRomanNumerals(500));
+        }
+        [Test]
+        public void TestConvertComboBackwardsVI()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("VI", c.ConvertNumberstoRomanNumerals(6));
+        }
+        [Test]
+        public void TestConvertComboBackwardsIV()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("IV", c.ConvertNumberstoRomanNumerals(4));
+        }
+        [Test]
+        public void TestConvertComboBackwardsIII()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("III", c.ConvertNumberstoRomanNumerals(3));
+        }
     }
 }
