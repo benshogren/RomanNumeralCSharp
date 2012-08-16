@@ -16,8 +16,8 @@ namespace RomanNumeralCalculatorCSharp
 
         public string ConvertNumberstoRomanNumerals(int x)
         {
-            
-            switch (x){
+            switch (x)
+            {
                 case 1:
                     return "I";
                 case 5:
@@ -35,12 +35,70 @@ namespace RomanNumeralCalculatorCSharp
                 default:
                     break;
             }
-             TwoDigit(x);
-            
-
-            return OneThroughTen(x);
-        
+            if (x.ToString().Length == 1)
+            {
+                return OneDigit(x);
+            } 
+            else if (x.ToString().Length == 2)
+            {
+                return TwoDigit(x);
+            }
+            else 
+            {
+                return ThreeDigit(x);
+            }  
         }
+
+        public string ThreeDigit(int x)
+        {
+            string Answer = "";
+            int y;
+            switch (x.ToString()[0])
+            {
+                case '1':
+                    Answer = Answer + "C";
+                    y = x - 100;
+                    break;
+                case '2':
+                    Answer = Answer + "CC";
+                    y = x - 200;
+                    break;
+                case '3':
+                    Answer = Answer + "CCC";
+                    y = x - 300;
+                    break;
+                case '4':
+                    Answer = Answer + "CD";
+                    y = x - 400;
+                    break;
+                case '5':
+                    Answer = Answer + "D";
+                    y = x - 500;
+                    break;
+                case '6':
+                    Answer = Answer + "DC";
+                    y = x - 600;
+                    break;
+                case '7':
+                    Answer = Answer + "DCC";
+                    y = x - 700;
+                    break;
+                case '8':
+                    Answer = Answer + "DCCC";
+                    y = x - 800;
+                    break;
+                case '9':
+                    Answer = Answer + "CM";
+                    y = x - 900;
+                    break;
+                default:
+                    y = 0;
+                    break;
+            }
+            Answer = Answer + TwoDigit(y);
+            return Answer;
+        }
+
         public string TwoDigit(int x)
         {
             string Answer = "";
@@ -86,19 +144,14 @@ namespace RomanNumeralCalculatorCSharp
                     y = 0;
                     break;
             }
-            Answer = Answer + OneThroughTen(y);
-
-
-
-
+            Answer = Answer + OneDigit(y);
             return Answer; 
         }
 
-        public string OneThroughTen(int x)
+        public string OneDigit(int x)
         {
             string Answer = "";
-            if (x.ToString().Length == 1)
-            {
+            
                 if (x == 4)
                 {
                     return "IV";
@@ -125,9 +178,6 @@ namespace RomanNumeralCalculatorCSharp
                     return Answer;
                 }
                 else return "0";
-
-            }
-            else return TwoDigit(x);
         }
 
         public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber)

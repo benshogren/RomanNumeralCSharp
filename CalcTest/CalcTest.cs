@@ -160,5 +160,23 @@ namespace CalcTest
             Converter c = new Converter();
             Assert.AreEqual("XII", c.ConvertNumberstoRomanNumerals(12));
         }
+        [Test]
+        public void TestConvertComboBackwards122()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("CXXII", c.ConvertNumberstoRomanNumerals(122));
+        }
+        [Test]
+        public void TestConvertComboBackwards387()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("CCCLXXXVII", c.ConvertNumberstoRomanNumerals(387));
+        }
+        [Test]
+        public void TestConvertComboBackwards999()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("CMXCIX", c.ConvertNumberstoRomanNumerals(999));
+        }
     }
 }
