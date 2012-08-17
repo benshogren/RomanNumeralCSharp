@@ -286,5 +286,11 @@ namespace CalcTest
             Converter c = new Converter();
             Assert.AreEqual("C", c.FullFunction("V", "XX", Converter.CalcFunction.Multiply));
         }
+        [Test]
+        public void FourthTest()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("MXII", c.FourDigit(1012));
+        }
     }
 }

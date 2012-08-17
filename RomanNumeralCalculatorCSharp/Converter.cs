@@ -127,35 +127,26 @@ namespace RomanNumeralCalculatorCSharp
             {
                 return ThreeDigit(x);
             }
-            else return FourDigit(x);
+            else if (x.ToString().Length == 4)
+            {
+                return FourDigit(x);
+            }
+            else return "Your imput cannot be computed.";
         }
 
         public string FourDigit(int x)
         {
             string Answer = "";
-            int y;
-            switch (x.ToString()[0])
+            int dividend = 0;
+            
+            for (int i = 0; i <= (x - 1000); i = i + 1000)
             {
-                case '1':
-                    Answer = Answer + "M";
-                    y = x - 1000;
-                    break;
-                case '2':
-                    Answer = Answer + "MM";
-                    y = x - 2000;
-                    break;
-                case '3':
-                    Answer = Answer + "MMM";
-                    y = x - 3000;
-                    break;
-                default:
-                    y = 0;
-                    break;
+                Answer = Answer + "M";
+                dividend++;   
             }
-            Answer = Answer + ConvertNumberstoRomanNumerals(y);
-            return Answer;
+		    return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 1000));
         }
-
+   
         public string ThreeDigit(int x)
         {
             string Answer = "";
