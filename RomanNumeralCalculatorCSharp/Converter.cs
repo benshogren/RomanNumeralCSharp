@@ -14,6 +14,86 @@ namespace RomanNumeralCalculatorCSharp
             Divide
         }
 
+        public string FullFunction(string firstNumeral, string secondNumeral, CalcFunction operation) {
+            string finalAnswer = ConvertNumberstoRomanNumerals(Calculate(operation, firstNumeral, secondNumeral));
+            return finalAnswer;
+        }
+
+        public int ConvertSingleChars(char p)
+        {
+            switch (p)
+            {
+                case 'I':
+                    return 1;
+                case 'V':
+                    return 5;
+                case 'X':
+                    return 10;
+                case 'L':
+                    return 50;
+                case 'C':
+                    return 100;
+                case 'D':
+                    return 500;
+                case 'M':
+                    return 1000;
+                default:
+                    return 0;
+            }
+        }
+
+        public int ConvertMulitpleChars(String WholeNumeral)
+        {
+            int primaryCharacter;
+            int followingCharacter;
+            long Answer = 0;
+
+            for (int characterIndex = 0; characterIndex <= WholeNumeral.Length - 1; characterIndex++)
+            {
+                primaryCharacter = ConvertSingleChars(WholeNumeral[characterIndex]);
+                if (characterIndex == WholeNumeral.Length - 1)
+                {
+                    Answer = Answer + primaryCharacter;
+                    return (int)Answer;
+                }
+                followingCharacter = ConvertSingleChars(WholeNumeral[characterIndex + 1]);
+                if (primaryCharacter < followingCharacter)
+                {
+                    Answer = Answer - primaryCharacter;
+                }
+                else
+                {
+                    Answer = primaryCharacter + Answer;
+                }
+            }
+            return (int)Answer;
+        }
+
+        public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber)
+        {
+            if (calcFunction == CalcFunction.Add)
+            {
+                int answer = (ConvertMulitpleChars(FirstNumber) + ConvertMulitpleChars(SecondNumber));
+                return answer;
+            }
+            else if (calcFunction == CalcFunction.Subtract)
+            {
+                int answer = (ConvertMulitpleChars(FirstNumber) - ConvertMulitpleChars(SecondNumber));
+                return answer;
+            }
+            else if (calcFunction == CalcFunction.Multiply)
+            {
+                int answer = (ConvertMulitpleChars(FirstNumber) * ConvertMulitpleChars(SecondNumber));
+                return answer;
+            }
+            else if (calcFunction == CalcFunction.Divide) 
+            {
+                int answer = (ConvertMulitpleChars(FirstNumber) / ConvertMulitpleChars(SecondNumber));
+                return answer;
+            }
+            else return 0; 
+        }
+
         public string ConvertNumberstoRomanNumerals(int x)
         {
             switch (x)
@@ -76,22 +156,6 @@ namespace RomanNumeralCalculatorCSharp
             return Answer;
         }
 
-
-
-        public string ForthDidg(int x)
-        {
-            string Answer = "";
-            int dividend = 0;
-            for (int i = 0; i <= (x - 6000); i = i + 1000)
-            {
-                Answer = Answer + "M";
-                dividend++;
-            }
-            return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 1000));
-        }
-
-
-
         public string ThreeDigit(int x)
         {
             string Answer = "";
@@ -135,7 +199,7 @@ namespace RomanNumeralCalculatorCSharp
             if (x >= 40 && x <= 49)
             {
                 return Answer = Answer + "XL" + ConvertNumberstoRomanNumerals(x - 40);
-                 
+
             }
             else if (x >= 90 && x <= 99)
             {
@@ -168,108 +232,36 @@ namespace RomanNumeralCalculatorCSharp
         {
             string Answer = "";
 
-                if (x == 0) {
-                    return Answer;
-                }
-                if (x == 4)
-                {
-                    return "IV";
-                }
-                else if (x == 9)
-                {
-                    return "IX";
-                }
-                else if (x < 5)
-                {
-                    for (int i = 0; i <= (x - 1); i++)
-                    {
-                        Answer = Answer + "I";
-                    }
-                    return Answer;
-                }
-                else if (x > 5)
-                {
-                    Answer = Answer + "V";
-                    for (int i = 0; i <= (x - 6); i++)
-                    {
-                        Answer = Answer + "I";
-                    }
-                    return Answer;
-                }
-                else return "0";
-        }
-
-        public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber)
-        {
-            if (calcFunction == CalcFunction.Add)
+            if (x == 0)
             {
-                int answer = (Convert(FirstNumber) + Convert(SecondNumber));
-                return answer;
+                return Answer;
             }
-            else if (calcFunction == CalcFunction.Subtract)
+            if (x == 4)
             {
-                int answer = (Convert(FirstNumber) - Convert(SecondNumber));
-                return answer;
+                return "IV";
             }
-            else if (calcFunction == CalcFunction.Multiply)
+            else if (x == 9)
             {
-                int answer = (Convert(FirstNumber) * Convert(SecondNumber));
-                return answer;
+                return "IX";
             }
-            else if (calcFunction == CalcFunction.Divide) 
+            else if (x < 5)
             {
-                int answer = (Convert(FirstNumber) / Convert(SecondNumber));
-                return answer;
-            }
-            else return 0; 
-        }
-
-        public int Convert(String WholeNumeral)
-        {
-            int primaryCharacter;
-            int followingCharacter;
-            long answer = 0;
-
-            for (int characterIndex = 0; characterIndex <= WholeNumeral.Length - 1; characterIndex++)
-            {
-                primaryCharacter = ConvertSingleChars(WholeNumeral[characterIndex]);
-                if (characterIndex == WholeNumeral.Length - 1)
+                for (int i = 0; i <= (x - 1); i++)
                 {
-                    answer = answer + primaryCharacter;
-                    return (int)answer;
+                    Answer = Answer + "I";
                 }
-                followingCharacter = ConvertSingleChars(WholeNumeral[characterIndex + 1]);
-                if (primaryCharacter < followingCharacter)
-                {
-                    answer = answer - primaryCharacter;
-                }
-                else
-                {
-                    answer = primaryCharacter + answer;
-                }
+                return Answer;
             }
-            return (int)answer;
-        }
-        public int ConvertSingleChars(char p)
-        {
-            switch (p) { 
-                case 'I':
-                    return 1;
-                case 'V':
-                    return 5;
-                case 'X':
-                    return 10;
-                case 'L':
-                    return 50;
-                case 'C':
-                    return 100;
-                case 'D':
-                    return 500;
-                case 'M':
-                    return 1000;
-                default:
-                    return 0;
+            else if (x > 5)
+            {
+                Answer = Answer + "V";
+                for (int i = 0; i <= (x - 6); i++)
+                {
+                    Answer = Answer + "I";
+                }
+                return Answer;
             }
+            else return "0";
         }
     }
 }

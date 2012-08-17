@@ -14,49 +14,49 @@ namespace CalcTest
         public void TestI()
         {
             Converter c = new Converter();
-            Assert.AreEqual(1, c.Convert("I"));
+            Assert.AreEqual(1, c.ConvertMulitpleChars("I"));
         }
         [Test]
         public void TestV()
         {
             Converter v = new Converter();
-            Assert.AreEqual(5, v.Convert("V"));
+            Assert.AreEqual(5, v.ConvertMulitpleChars("V"));
         }
         [Test]
         public void TestX() 
         {
             Converter x = new Converter();
-            Assert.AreEqual(10, x.Convert("X"));
+            Assert.AreEqual(10, x.ConvertMulitpleChars("X"));
         }
         [Test]
         public void TestL()
         {
             Converter l = new Converter();
-            Assert.AreEqual(50, l.Convert("L"));
+            Assert.AreEqual(50, l.ConvertMulitpleChars("L"));
         }
         [Test]
         public void TestC()
         {
             Converter c = new Converter();
-            Assert.AreEqual(100, c.Convert("C"));
+            Assert.AreEqual(100, c.ConvertMulitpleChars("C"));
         }
         [Test]
         public void TestM()
         {
             Converter m = new Converter();
-            Assert.AreEqual(1000, m.Convert("M"));
+            Assert.AreEqual(1000, m.ConvertMulitpleChars("M"));
         }
         [Test]
         public void TestIV()
         {
             Converter iv = new Converter();
-            Assert.AreEqual(4, iv.Convert("IV"));
+            Assert.AreEqual(4, iv.ConvertMulitpleChars("IV"));
         }
         [Test]
         public void TestXIV()
         {
             Converter iv = new Converter();
-            Assert.AreEqual(14, iv.Convert("XIV"));
+            Assert.AreEqual(14, iv.ConvertMulitpleChars("XIV"));
         }
         [Test]
         public void TestAdd()
@@ -263,16 +263,28 @@ namespace CalcTest
             Assert.AreEqual("DCCLIII", c.ThreeDigit(753));
         }
         [Test]
-        public void TestForthDidgMMDCCLXXXIII()
+        public void TestFourDigitMMDCCLXXXIII()
         {
             Converter c = new Converter();
-            Assert.AreEqual("MMDCCLXXXIII", c.ForthDidg(2783));
+            Assert.AreEqual("MMDCCLXXXIII", c.FourDigit(2783));
         }
         [Test]
-        public void TestForthDigitMLIV()
+        public void TestFourDigitMLIV()
         {
             Converter c = new Converter();
-            Assert.AreEqual("MLIV", c.ForthDidg(1054));
+            Assert.AreEqual("MLIV", c.FourDigit(1054));
+        }
+        [Test]
+        public void TestFullFunctionI()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("LX", c.FullFunction("XXII", "XXXVIII", Converter.CalcFunction.Add));
+        }
+        [Test]
+        public void TestFullFunctionII()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("C", c.FullFunction("V", "XX", Converter.CalcFunction.Multiply));
         }
     }
 }
