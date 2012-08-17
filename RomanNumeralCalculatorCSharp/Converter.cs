@@ -76,110 +76,101 @@ namespace RomanNumeralCalculatorCSharp
             return Answer;
         }
 
+
+
+        public string ForthDidg(int x)
+        {
+            string Answer = "";
+            int dividend = 0;
+            for (int i = 0; i <= (x - 6000); i = i + 1000)
+            {
+                Answer = Answer + "M";
+                dividend++;
+            }
+            return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 1000));
+        }
+
+
+
         public string ThreeDigit(int x)
         {
             string Answer = "";
-            int y;
-            switch (x.ToString()[0])
+            int dividend = 0;
+            if (x >= 400 && x <= 499)
             {
-                case '1':
-                    Answer = Answer + "C";
-                    y = x - 100;
-                    break;
-                case '2':
-                    Answer = Answer + "CC";
-                    y = x - 200;
-                    break;
-                case '3':
-                    Answer = Answer + "CCC";
-                    y = x - 300;
-                    break;
-                case '4':
-                    Answer = Answer + "CD";
-                    y = x - 400;
-                    break;
-                case '5':
-                    Answer = Answer + "D";
-                    y = x - 500;
-                    break;
-                case '6':
-                    Answer = Answer + "DC";
-                    y = x - 600;
-                    break;
-                case '7':
-                    Answer = Answer + "DCC";
-                    y = x - 700;
-                    break;
-                case '8':
-                    Answer = Answer + "DCCC";
-                    y = x - 800;
-                    break;
-                case '9':
-                    Answer = Answer + "CM";
-                    y = x - 900;
-                    break;
-                default:
-                    y = 0;
-                    break;
+                Answer = Answer + "CD" + ConvertNumberstoRomanNumerals(x - 400);
+                return Answer;
             }
-            Answer = Answer + ConvertNumberstoRomanNumerals(y);
-            return Answer;
+            else if (x >= 900 && x <= 999)
+            {
+                Answer = Answer + "CM" + ConvertNumberstoRomanNumerals(x - 900);
+                return Answer;
+            }
+            else if (x < 500)
+            {
+                for (int i = 0; i <= (x - 100); i = i + 100)
+                {
+                    Answer = Answer + "C";
+                    dividend++;
+                }
+                return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 100));
+            }
+            else if (x > 500)
+            {
+                Answer = Answer + "D";
+                for (int i = 0; i <= (x - 600); i = i + 100)
+                {
+                    Answer = Answer + "C";
+                    dividend++;
+                }
+                return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 100) - 500);
+            }
+            else return "0";
         }
 
         public string TwoDigit(int x)
         {
             string Answer = "";
-            int y;
-            switch (x.ToString()[0]) 
+            int dividend = 0;
+            if (x >= 40 && x <= 49)
             {
-                case '1':
-                    Answer = Answer + "X";
-                    y = x - 10;
-                    break;
-                case '2':
-                    Answer = Answer + "XX";
-                    y = x - 20;
-                    break;
-                case '3':
-                    Answer = Answer + "XXX";
-                    y = x - 30;
-                    break;
-                case '4':
-                    Answer = Answer + "XL";
-                    y = x - 40;
-                    break;
-                case '5':
-                    Answer = Answer + "L";
-                    y = x - 50;
-                    break;
-                case '6':
-                    Answer = Answer + "LX";
-                    y = x - 60;
-                    break;
-                case '7':
-                    Answer = Answer + "LXX";
-                    y = x - 70;
-                    break;
-                case '8':
-                    Answer = Answer + "LXXX";
-                    y = x - 80;
-                    break;
-                case '9':
-                    Answer = Answer + "XC";
-                    y = x - 90;
-                    break;
-                default:
-                    y = 0;
-                    break;
+                return Answer = Answer + "XL" + ConvertNumberstoRomanNumerals(x - 40);
+                 
             }
-            Answer = Answer + ConvertNumberstoRomanNumerals(y);
-            return Answer; 
+            else if (x >= 90 && x <= 99)
+            {
+                Answer = Answer + "XC" + ConvertNumberstoRomanNumerals(x - 90);
+                return Answer;
+            }
+            else if (x < 50)
+            {
+                for (int i = 0; i <= (x - 10); i = i + 10)
+                {
+                    Answer = Answer + "X";
+                    dividend++;
+                }
+                return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 10));
+            }
+            else if (x > 50)
+            {
+                Answer = Answer + "L";
+                for (int i = 0; i <= (x - 60); i = i + 10)
+                {
+                    Answer = Answer + "X";
+                    dividend++;
+                }
+                return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 10) - 50);
+            }
+            else return "0";
         }
 
         public string OneDigit(int x)
         {
             string Answer = "";
-            
+
+                if (x == 0) {
+                    return Answer;
+                }
                 if (x == 4)
                 {
                     return "IV";

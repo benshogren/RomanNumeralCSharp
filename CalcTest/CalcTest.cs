@@ -208,6 +208,71 @@ namespace CalcTest
             Converter c = new Converter();
             Assert.AreEqual("CXX", c.ConvertNumberstoRomanNumerals(120));
         }
-
+        [Test]
+        public void TestTwoDigitTwo()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("XII", c.TwoDigit(12));
+        }
+        [Test]
+        public void TestTwoDigitTwoXX()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("XX", c.TwoDigit(20));
+        }
+        [Test]
+        public void TestTwoDigitTwoXLI()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("XLI", c.TwoDigit(41));
+        }
+        [Test]
+        public void TestTwoDigitTwoXL()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("XL", c.TwoDigit(40));
+        }
+        [Test]
+        public void TestTwoDigitTwoLXII()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("LXII", c.TwoDigit(62));
+        }
+        [Test]
+        public void TestTwoDigitTwoLXXVIII()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("LXXVIII", c.TwoDigit(78));
+        }
+        [Test]
+        public void TestThreeDigitTwoCCCXLVIII()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("CCCXLVIII", c.ThreeDigit(348));
+        }
+        [Test]
+        public void TestThreeDigitTwoCDLXXVIII()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("CDLXXVIII", c.ThreeDigit(478));
+        }
+        [Test]
+        public void TestThreeDigitTwoDCCLIII()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("DCCLIII", c.ThreeDigit(753));
+        }
+        [Test]
+        public void TestForthDidgMMDCCLXXXIII()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("MMDCCLXXXIII", c.ForthDidg(2783));
+        }
+        [Test]
+        public void TestForthDigitMLIV()
+        {
+            Converter c = new Converter();
+            Assert.AreEqual("MLIV", c.ForthDidg(1054));
+        }
     }
 }
