@@ -42,21 +42,21 @@ namespace RomanNumeralCalculatorCSharp
             }
         }
 
-        public int ConvertMulitpleChars(String WholeNumeral)
+        public int ConvertMulitpleChars(String EntireNumeral)
         {
             int primaryCharacter;
             int followingCharacter;
             long Answer = 0;
 
-            for (int characterIndex = 0; characterIndex <= WholeNumeral.Length - 1; characterIndex++)
+            for (int characterIndex = 0; characterIndex <= EntireNumeral.Length - 1; characterIndex++)
             {
-                primaryCharacter = ConvertSingleChars(WholeNumeral[characterIndex]);
-                if (characterIndex == WholeNumeral.Length - 1)
+                primaryCharacter = ConvertSingleChars(EntireNumeral[characterIndex]);
+                if (characterIndex == EntireNumeral.Length - 1)
                 {
                     Answer = Answer + primaryCharacter;
                     return (int)Answer;
                 }
-                followingCharacter = ConvertSingleChars(WholeNumeral[characterIndex + 1]);
+                followingCharacter = ConvertSingleChars(EntireNumeral[characterIndex + 1]);
                 if (primaryCharacter < followingCharacter)
                 {
                     Answer = Answer - primaryCharacter;
@@ -71,27 +71,19 @@ namespace RomanNumeralCalculatorCSharp
 
         public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber)
         {
-            if (calcFunction == CalcFunction.Add)
-            {
-                int answer = (ConvertMulitpleChars(FirstNumber) + ConvertMulitpleChars(SecondNumber));
-                return answer;
+            int answer;
+            switch (calcFunction) { 
+                case CalcFunction.Add: 
+                    return answer = (ConvertMulitpleChars(FirstNumber) + ConvertMulitpleChars(SecondNumber));
+                case CalcFunction.Subtract:
+                    return answer = (ConvertMulitpleChars(FirstNumber) - ConvertMulitpleChars(SecondNumber));
+                case CalcFunction.Multiply:
+                    return answer = (ConvertMulitpleChars(FirstNumber) * ConvertMulitpleChars(SecondNumber));
+                case CalcFunction.Divide:
+                    return answer = (ConvertMulitpleChars(FirstNumber) / ConvertMulitpleChars(SecondNumber));
+                default:
+                    return 0;
             }
-            else if (calcFunction == CalcFunction.Subtract)
-            {
-                int answer = (ConvertMulitpleChars(FirstNumber) - ConvertMulitpleChars(SecondNumber));
-                return answer;
-            }
-            else if (calcFunction == CalcFunction.Multiply)
-            {
-                int answer = (ConvertMulitpleChars(FirstNumber) * ConvertMulitpleChars(SecondNumber));
-                return answer;
-            }
-            else if (calcFunction == CalcFunction.Divide) 
-            {
-                int answer = (ConvertMulitpleChars(FirstNumber) / ConvertMulitpleChars(SecondNumber));
-                return answer;
-            }
-            else return 0; 
         }
 
         public string ConvertNumberstoRomanNumerals(int x)
@@ -115,30 +107,26 @@ namespace RomanNumeralCalculatorCSharp
                 default:
                     break;
             }
-            if (x.ToString().Length == 1)
+
+            switch (x.ToString().Length)
             {
-                return OneDigit(x);
+                case 1:
+                    return OneDigit(x);
+                case 2:
+                    return TwoDigit(x);
+                case 3:
+                    return ThreeDigit(x);
+                case 4:
+                    return FourDigit(x);
+                default:
+                    return "Your imput cannot be computed.";
             }
-            else if (x.ToString().Length == 2)
-            {
-                return TwoDigit(x);
-            }
-            else if (x.ToString().Length == 3)
-            {
-                return ThreeDigit(x);
-            }
-            else if (x.ToString().Length == 4)
-            {
-                return FourDigit(x);
-            }
-            else return "Your imput cannot be computed.";
         }
 
         public string FourDigit(int x)
         {
             string Answer = "";
             int dividend = 0;
-            
             for (int i = 0; i <= (x - 1000); i = i + 1000)
             {
                 Answer = Answer + "M";
@@ -222,11 +210,6 @@ namespace RomanNumeralCalculatorCSharp
         public string OneDigit(int x)
         {
             string Answer = "";
-
-            if (x == 0)
-            {
-                return Answer;
-            }
             if (x == 4)
             {
                 return "IV";
