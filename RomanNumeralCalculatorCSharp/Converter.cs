@@ -7,19 +7,21 @@ namespace RomanNumeralCalculatorCSharp
 {
     public class Converter
     {
-        public enum CalcFunction{
+        public enum CalcFunction //Our calculator's operations.
+        {
             Add,
             Subtract,
             Multiply,
             Divide
         }
 
-        public string FullFunction(string firstNumeral, string secondNumeral, CalcFunction operation) {
+        public string FullFunction(string firstNumeral, string secondNumeral, CalcFunction operation) 
+        {
             string finalAnswer = ConvertNumberstoRomanNumerals(Calculate(operation, firstNumeral, secondNumeral));
             return finalAnswer;
         }
 
-        public int ConvertSingleChars(char p)
+        public int ConvertSingleChars(char p)//Converts the Roman Numerals into numbers on the elementary level--that is, when the Roman numeral is a single digit long.
         {
             switch (p)
             {
@@ -42,7 +44,7 @@ namespace RomanNumeralCalculatorCSharp
             }
         }
 
-        public int ConvertMulitpleChars(String EntireNumeral)
+        public int ConvertMulitpleChars(String EntireNumeral)//This algorithm computes Roman Numerals that are longer than one digit.
         {
             int primaryCharacter;
             int followingCharacter;
@@ -69,7 +71,7 @@ namespace RomanNumeralCalculatorCSharp
             return (int)Answer;
         }
 
-        public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber)
+        public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber)//Will take in the two numerals and the specified math operation to return an answer as an integer.
         {
             int answer;
             switch (calcFunction) { 
@@ -86,9 +88,9 @@ namespace RomanNumeralCalculatorCSharp
             }
         }
 
-        public string ConvertNumberstoRomanNumerals(int x)
+        public string ConvertNumberstoRomanNumerals(int x)//Converts the integer (x) taken from Calculate and converts it back into Roman Numerals. 
         {
-            switch (x)
+            switch (x)//Converts x into a single digit Roman Numeral if it can.
             {
                 case 1:
                     return "I";
@@ -108,7 +110,7 @@ namespace RomanNumeralCalculatorCSharp
                     break;
             }
 
-            switch (x.ToString().Length)
+            switch (x.ToString().Length)//Takes the integer from Calculate and converts it into a string and measures the string to determine how many digits are in the number, so that it can be passed through the four following functions and converted one digit at a time. 
             {
                 case 1:
                     return OneDigit(x);
