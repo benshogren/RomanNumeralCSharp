@@ -3,241 +3,120 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RomanNumeralCalculatorCSharp
-{
-    public class Converter
-    {
-        public enum CalcFunction //Our calculator's operations.
-        {
-            Add,
-            Subtract,
-            Multiply,
-            Divide
+namespace RomanNumeralCalculatorCSharp {
+    public class Converter {
+        private Dictionary<CalcFunction, Func<int, int, int>> operationMap = new Dictionary<CalcFunction, Func<int, int, int>>() {
+            {CalcFunction.Add, (x, y) => {return x + y;}}, 
+            {CalcFunction.Subtract, (x, y) => {return x - y;}}, 
+            {CalcFunction.Multiply, (x, y) => {return x * y;}}, 
+            {CalcFunction.Divide, (x, y) => {return x / y;}}, 
+        };
+
+
+        public string FullFunction(string FirstNumber, string SecondNumber, CalcFunction calcFunction) {
+            return ConvertNumberstoRomanNumerals(Calculate(calcFunction, FirstNumber, SecondNumber));
         }
 
-        public string FullFunction(string firstNumeral, string secondNumeral, CalcFunction operation) 
-        {
-            string finalAnswer = ConvertNumberstoRomanNumerals(Calculate(operation, firstNumeral, secondNumeral));
-            return finalAnswer;
-        }
+        /// <summary>
+        /// Converts the Roman Numerals into numbers on the elementary level--that is, 
+        /// when the Roman numeral is a single digit long.
+        /// </summary>
+        private Dictionary<char, int> ConvertSingleChars = new Dictionary<char, int>() {
+            {'I', 1},
+            {'V', 5},
+            {'X', 10},
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000}
+        };
 
-        public int ConvertSingleChars(char p)//Converts the Roman Numerals into numbers on the elementary level--that is, when the Roman numeral is a single digit long.
-        {
-            switch (p)
-            {
-                case 'I':
-                    return 1;
-                case 'V':
-                    return 5;
-                case 'X':
-                    return 10;
-                case 'L':
-                    return 50;
-                case 'C':
-                    return 100;
-                case 'D':
-                    return 500;
-                case 'M':
-                    return 1000;
-                default:
-                    return 0;
-            }
-        }
-
-        public int ConvertMulitpleChars(String EntireNumeral)//This algorithm computes Roman Numerals that are longer than one digit.
-        {
+        //This algorithm computes Roman Numerals that are longer than one digit.
+        public int ConvertMulitpleChars(String EntireNumeral) {
             int primaryCharacter;
             int followingCharacter;
             long Answer = 0;
 
-            for (int characterIndex = 0; characterIndex <= EntireNumeral.Length - 1; characterIndex++)
-            {
-                primaryCharacter = ConvertSingleChars(EntireNumeral[characterIndex]);
-                if (characterIndex == EntireNumeral.Length - 1)
-                {
+            for (int characterIndex = 0; characterIndex <= EntireNumeral.Length - 1; characterIndex++) {
+                primaryCharacter = ConvertSingleChars[EntireNumeral[characterIndex]];
+                if (characterIndex == EntireNumeral.Length - 1) {
                     Answer = Answer + primaryCharacter;
                     return (int)Answer;
                 }
-                followingCharacter = ConvertSingleChars(EntireNumeral[characterIndex + 1]);
-                if (primaryCharacter < followingCharacter)
-                {
+                followingCharacter = ConvertSingleChars[EntireNumeral[characterIndex + 1]];
+                if (primaryCharacter < followingCharacter) {
                     Answer = Answer - primaryCharacter;
-                }
-                else
-                {
+                } else {
                     Answer = primaryCharacter + Answer;
                 }
             }
             return (int)Answer;
         }
-
-        public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber)//Will take in the two numerals and the specified math operation to return an answer as an integer.
-        {
-            int answer;
-            switch (calcFunction) { 
-                case CalcFunction.Add: 
-                    return answer = (ConvertMulitpleChars(FirstNumber) + ConvertMulitpleChars(SecondNumber));
-                case CalcFunction.Subtract:
-                    return answer = (ConvertMulitpleChars(FirstNumber) - ConvertMulitpleChars(SecondNumber));
-                case CalcFunction.Multiply:
-                    return answer = (ConvertMulitpleChars(FirstNumber) * ConvertMulitpleChars(SecondNumber));
-                case CalcFunction.Divide:
-                    return answer = (ConvertMulitpleChars(FirstNumber) / ConvertMulitpleChars(SecondNumber));
-                default:
-                    return 0;
-            }
+        //Will take in the two numerals and the specified math operation to return an answer as an integer.
+        public int Calculate(CalcFunction calcFunction, String FirstNumber, String SecondNumber) {
+            return operationMap[calcFunction].Invoke(ConvertMulitpleChars(FirstNumber), ConvertMulitpleChars(SecondNumber));
+        }
+        //Converts the integer (x) taken from Calculate and converts it back into Roman Numerals. 
+        public string ConvertNumberstoRomanNumerals(int x) {
+            return ConvertNumberstoRomanNumerals(x.ToString());
         }
 
-        public string ConvertNumberstoRomanNumerals(int x)//Converts the integer (x) taken from Calculate and converts it back into Roman Numerals. 
-        {
-            switch (x)//Converts x into a single digit Roman Numeral if it can.
-            {
-                case 1:
-                    return "I";
-                case 5:
-                    return "V";
-                case 10:
-                    return "X";
-                case 50:
-                    return "L";
-                case 100:
-                    return "C";
-                case 500:
-                    return "D";
-                case 1000:
-                    return "M";
-                default:
-                    break;
+        public string ConvertNumberstoRomanNumerals(string x) {
+            var answer = "";
+            string currentDigit = x[0].ToString();
+            if (Int32.Parse(x) > 3999) { return "Input can not be computed"; }
+            var digitMap = numeralDigitMap[x.Length];
+            var digitInt = Int32.Parse(currentDigit);
+            if (digitMap.ContainsKey(currentDigit)) {
+                answer += digitMap[currentDigit];
+            } else if (digitInt < 5){
+                for (int i = 0; i <= (digitInt - 1); i ++) {
+                    answer += digitMap["1"];
+                }
+            } else if (digitInt > 5){
+                answer += digitMap["5"];
+                for (int i = 0; i <= (digitInt - 6); i ++) {
+                    answer += digitMap["1"];
+                }
             }
-
-            switch (x.ToString().Length)//Takes the integer from Calculate and converts it into a string and measures the string to determine how many digits are in the number, so that it can be passed through the four following functions and converted one digit at a time. 
-            {
-                case 1:
-                    return OneDigit(x);
-                case 2:
-                    return TwoDigit(x);
-                case 3:
-                    return ThreeDigit(x);
-                case 4:
-                    return FourDigit(x);
-                default:
-                    return "Your imput cannot be computed.";
+            if (x.Length == 1) {
+                return answer;
             }
+            return answer + ConvertNumberstoRomanNumerals(x.Substring(1));
         }
 
-        public string FourDigit(int x)
-        {
-            string Answer = "";
-            int dividend = 0;
-            for (int i = 0; i <= (x - 1000); i = i + 1000)
-            {
-                Answer = Answer + "M";
-                dividend++;   
-            }
-		    return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 1000));
-        }
-   
-        public string ThreeDigit(int x)
-        {
-            string Answer = "";
-            int dividend = 0;
-            if (x >= 400 && x <= 499)
-            {
-                Answer = Answer + "CD" + ConvertNumberstoRomanNumerals(x - 400);
-                return Answer;
-            }
-            else if (x >= 900 && x <= 999)
-            {
-                Answer = Answer + "CM" + ConvertNumberstoRomanNumerals(x - 900);
-                return Answer;
-            }
-            else if (x < 500)
-            {
-                for (int i = 0; i <= (x - 100); i = i + 100)
-                {
-                    Answer = Answer + "C";
-                    dividend++;
-                }
-                return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 100));
-            }
-            else if (x > 500)
-            {
-                Answer = Answer + "D";
-                for (int i = 0; i <= (x - 600); i = i + 100)
-                {
-                    Answer = Answer + "C";
-                    dividend++;
-                }
-                return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 100) - 500);
-            }
-            else return "0";
-        }
+        private Dictionary<int, Dictionary<string, string>> numeralDigitMap = new Dictionary<int, Dictionary<string, string>>() {
+            {1, new Dictionary<string, string>(){
+                {"1", "I"},
+                {"4", "IV"},
+                {"5", "V"},
+                {"9", "IX"},
+            }},
+            {2, new Dictionary<string, string>(){
+                {"1", "X"},
+                {"4", "XL"},
+                {"5", "L"},
+                {"9", "XC"},
+            }},
+            {3, new Dictionary<string, string>(){
+                {"1", "C"},
+                {"4", "CD"},
+                {"5", "D"},
+                {"9", "CM"},
+            }},
+            {4, new Dictionary<string, string>(){
+                {"1", "M"}
+            }}
+        };
 
-        public string TwoDigit(int x)
-        {
-            string Answer = "";
-            int dividend = 0;
-            if (x >= 40 && x <= 49)
-            {
-                return Answer = Answer + "XL" + ConvertNumberstoRomanNumerals(x - 40);
 
-            }
-            else if (x >= 90 && x <= 99)
-            {
-                Answer = Answer + "XC" + ConvertNumberstoRomanNumerals(x - 90);
-                return Answer;
-            }
-            else if (x < 50)
-            {
-                for (int i = 0; i <= (x - 10); i = i + 10)
-                {
-                    Answer = Answer + "X";
-                    dividend++;
-                }
-                return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 10));
-            }
-            else if (x > 50)
-            {
-                Answer = Answer + "L";
-                for (int i = 0; i <= (x - 60); i = i + 10)
-                {
-                    Answer = Answer + "X";
-                    dividend++;
-                }
-                return Answer + ConvertNumberstoRomanNumerals(x - (dividend * 10) - 50);
-            }
-            else return "0";
-        }
 
-        public string OneDigit(int x)
-        {
-            string Answer = "";
-            if (x == 4)
-            {
-                return "IV";
-            }
-            else if (x == 9)
-            {
-                return "IX";
-            }
-            else if (x < 5)
-            {
-                for (int i = 0; i <= (x - 1); i++)
-                {
-                    Answer = Answer + "I";
-                }
-                return Answer;
-            }
-            else if (x > 5)
-            {
-                Answer = Answer + "V";
-                for (int i = 0; i <= (x - 6); i++)
-                {
-                    Answer = Answer + "I";
-                }
-                return Answer;
-            }
-            else return "0";
+        //Our calculator's operations.
+        public enum CalcFunction {
+            Add,
+            Subtract,
+            Multiply,
+            Divide
         }
     }
 }

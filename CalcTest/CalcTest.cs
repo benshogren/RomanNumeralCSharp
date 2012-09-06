@@ -149,6 +149,11 @@ namespace CalcTest
             Assert.AreEqual("LXXXIX", c.ConvertNumberstoRomanNumerals(89));
         }
         [Test]
+        public void TestConvertComboBackwards4000() {
+            Converter c = new Converter();
+            Assert.AreEqual("Input can not be computed", c.ConvertNumberstoRomanNumerals(4000));
+        }
+        [Test]
         public void TestConvertComboBackwards99()
         {
             Converter c = new Converter();
@@ -209,70 +214,70 @@ namespace CalcTest
             Assert.AreEqual("CXX", c.ConvertNumberstoRomanNumerals(120));
         }
         [Test]
-        public void TestTwoDigitTwo()
+        public void TestConvertNumberstoRomanNumeralsTwo()
         {
             Converter c = new Converter();
-            Assert.AreEqual("XII", c.TwoDigit(12));
+            Assert.AreEqual("XII", c.ConvertNumberstoRomanNumerals(12));
         }
         [Test]
-        public void TestTwoDigitTwoXX()
+        public void TestConvertNumberstoRomanNumeralsTwoXX()
         {
             Converter c = new Converter();
-            Assert.AreEqual("XX", c.TwoDigit(20));
+            Assert.AreEqual("XX", c.ConvertNumberstoRomanNumerals(20));
         }
         [Test]
-        public void TestTwoDigitTwoXLI()
+        public void TestConvertNumberstoRomanNumeralsTwoXLI()
         {
             Converter c = new Converter();
-            Assert.AreEqual("XLI", c.TwoDigit(41));
+            Assert.AreEqual("XLI", c.ConvertNumberstoRomanNumerals(41));
         }
         [Test]
-        public void TestTwoDigitTwoXL()
+        public void TestConvertNumberstoRomanNumeralsTwoXL()
         {
             Converter c = new Converter();
-            Assert.AreEqual("XL", c.TwoDigit(40));
+            Assert.AreEqual("XL", c.ConvertNumberstoRomanNumerals(40));
         }
         [Test]
-        public void TestTwoDigitTwoLXII()
+        public void TestConvertNumberstoRomanNumeralsTwoLXII()
         {
             Converter c = new Converter();
-            Assert.AreEqual("LXII", c.TwoDigit(62));
+            Assert.AreEqual("LXII", c.ConvertNumberstoRomanNumerals(62));
         }
         [Test]
-        public void TestTwoDigitTwoLXXVIII()
+        public void TestConvertNumberstoRomanNumeralsTwoLXXVIII()
         {
             Converter c = new Converter();
-            Assert.AreEqual("LXXVIII", c.TwoDigit(78));
+            Assert.AreEqual("LXXVIII", c.ConvertNumberstoRomanNumerals(78));
         }
         [Test]
         public void TestThreeDigitTwoCCCXLVIII()
         {
             Converter c = new Converter();
-            Assert.AreEqual("CCCXLVIII", c.ThreeDigit(348));
+            Assert.AreEqual("CCCXLVIII", c.ConvertNumberstoRomanNumerals(348));
         }
         [Test]
         public void TestThreeDigitTwoCDLXXVIII()
         {
             Converter c = new Converter();
-            Assert.AreEqual("CDLXXVIII", c.ThreeDigit(478));
+            Assert.AreEqual("CDLXXVIII", c.ConvertNumberstoRomanNumerals(478));
         }
         [Test]
         public void TestThreeDigitTwoDCCLIII()
         {
             Converter c = new Converter();
-            Assert.AreEqual("DCCLIII", c.ThreeDigit(753));
+            Assert.AreEqual("DCCLIII", c.ConvertNumberstoRomanNumerals(753));
         }
         [Test]
         public void TestFourDigitMMDCCLXXXIII()
         {
             Converter c = new Converter();
-            Assert.AreEqual("MMDCCLXXXIII", c.FourDigit(2783));
+            Assert.AreEqual("MMDCCLXXXIII", c.ConvertNumberstoRomanNumerals(2783));
         }
         [Test]
         public void TestFourDigitMLIV()
         {
             Converter c = new Converter();
-            Assert.AreEqual("MLIV", c.FourDigit(1054));
+            Assert.AreEqual("MLIV", c.ConvertNumberstoRomanNumerals(1054));
         }
         [Test]
         public void TestFullFunctionI()
@@ -290,7 +295,7 @@ namespace CalcTest
         public void FourthTest()
         {
             Converter c = new Converter();
-            Assert.AreEqual("MXII", c.FourDigit(1012));
+            Assert.AreEqual("MXII", c.ConvertNumberstoRomanNumerals(1012));
         }
         [Test]
         public void TestFullFunctionIII()
